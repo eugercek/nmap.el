@@ -7,7 +7,7 @@
 ;; Created: Nisan 15, 2021
 ;; Modified: Nisan 15, 2021
 ;; Version: 0.0.1
-;; Keywords: Symbol’s value as variable is void: finder-known-keywords
+;; Keywords:
 ;; Homepage: https://github.com/EminUmutGercek/nmap.el
 ;; Package-Requires: ((emacs "24.3"))
 ;;
@@ -19,22 +19,45 @@
 ;;
 ;;; Code:
 
+(require 'rx)
+
 (defconst ip4-regex "\\([0-9]\\{1,3\\}\.\\)\\{3\\}[0-9]\\{1,3\\}")
-               ;; \([0-9] \{1,3 \}\. \) \{3 \}[0-9] \{1,3 \}
-               ;;  ([0-9]  {1,3}   .  )  {3}  [0-9]{1,3}
-               ;;  ([0-9]{1,3}.){3}[0-9]{1,3}
+;; \([0-9] \{1,3 \}\. \) \{3 \}[0-9] \{1,3 \}
+;;  ([0-9]  {1,3}   .  )  {3}  [0-9]{1,3}
+;;  ([0-9]{1,3}.){3}[0-9]{1,3}
 
 (defconst ip6-regex "\\([0-9a-fA-F]\\{1,4\\}:\\)\\{7\\}[0-9a-fA-F]\\{1,4\\}")
-               ;; \([0-9a-fA-F] \{1,4 \}: \) \{7 \}[0-9a-fA-F] \{1,4 \}
-               ;;  ([0-9a-fA-F]  {1,4  }:  )  {7  }[0-9a-fA-F]   {1,4 }
-               ;;  ([0-9a-fA-F]{1,4}:){7}[0-9a-fA-F]{1,4}
+;; \([0-9a-fA-F] \{1,4 \}: \) \{7 \}[0-9a-fA-F] \{1,4 \}
+;;  ([0-9a-fA-F]  {1,4  }:  )  {7  }[0-9a-fA-F]   {1,4 }
+;;  ([0-9a-fA-F]{1,4}:){7}[0-9a-fA-F]{1,4}
 
-(defconst ips (concat ip4-regex "\\|" ip6-regex)) ;; ip4 or ip6
+(defconst ips-regex (concat ip4-regex "\\|" ip6-regex)) ;; ip4 or ip6
 
+(defconst -p-no* "-p [[:digit:]]+\\(-[[:digit:]]+\\)?")
+
+(defconst port-regex
+  (rx
+   "-p"
+   (opt space)
+   (or
+    "-"
+    (seq
+     (group (1+ digit))
+     (opt space)
+     (opt
+      (seq
+       "-"
+       (opt space)
+       (group (1+ digit))))))))
+
+;; (setq port-regex (concat -p-no* "\\|" "-p-" "\\|"))
+
+;; (,port-regex font-lock-string-face)
 (setq nmap-highlights
-      `((,ips . font-lock-variable-name-face)
-        ("[0-9]\\{1,5\\}" . font-lock-constant-face)
-        ("nmap" . font-lock-comment-face)))
+      `((,ips-regex    . font-lock-variable-name-face)
+        (,port-regex   . font-lock-keyword-face)
+        ("[0-9]+"      . font-lock-constant-face)
+        ("nmap"        . font-lock-comment-face)))
 
 (define-derived-mode nmap-mode fundamental-mode "nmap"
   "Onyl syntax higlight for nmap"
