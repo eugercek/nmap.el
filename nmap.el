@@ -19,13 +19,22 @@
 ;;
 ;;; Code:
 
+(defconst ip4-regex "\\([0-9]\\{1,3\\}\.\\)\\{3\\}[0-9]\\{1,3\\}")
+               ;; \([0-9] \{1,3 \}\. \) \{3 \}[0-9] \{1,3 \}
+               ;;  ([0-9]  {1,3}   .  )  {3}  [0-9]{1,3}
+               ;;  ([0-9]{1,3}.){3}[0-9]{1,3}
+
+(defconst ip6-regex "\\([0-9a-fA-F]\\{1,4\\}:\\)\\{7\\}[0-9a-fA-F]\\{1,4\\}")
+               ;; \([0-9a-fA-F] \{1,4 \}: \) \{7 \}[0-9a-fA-F] \{1,4 \}
+               ;;  ([0-9a-fA-F]  {1,4  }:  )  {7  }[0-9a-fA-F]   {1,4 }
+               ;;  ([0-9a-fA-F]{1,4}:){7}[0-9a-fA-F]{1,4}
+
+(defconst ips (concat ip4-regex "\\|" ip6-regex)) ;; ip4 or ip6
 
 (setq nmap-highlights
-      ;; 3 times <number.> then last number
-      '(("\\([0-9]\\{1,3\\}.\\)\\{3\\}[0-9]\\{1,3\\}"
-. font-lock-variable-name-face) ;; ip4
-        ("[0-9]\\{1,5\\}" . font-lock-constant-face);; port 0-65535
-        ("nmap" . font-lock-builtin-face)))
+      `((,ips . font-lock-variable-name-face)
+        ("[0-9]\\{1,5\\}" . font-lock-constant-face)
+        ("nmap" . font-lock-comment-face)))
 
 (define-derived-mode nmap-mode fundamental-mode "nmap"
   "Onyl syntax higlight for nmap"

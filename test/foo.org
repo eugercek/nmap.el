@@ -1,5 +1,0 @@
-#+TITLE: Foo
-
-#+begin_src nmap
-nmap -sS 192.168.0.1
-#+end_src
