@@ -21,8 +21,10 @@
 
 
 (setq nmap-highlights
-      '(("[0-9]+\.[0-9]+\.[0-9]+\.[0-9]+" . font-lock-variable-name-face) ;; ip4
-        ("[0-9]+" . font-lock-constant-face);; port
+      ;; 3 times <number.> then last number
+      '(("\\([0-9]\\{1,3\\}.\\)\\{3\\}[0-9]\\{1,3\\}"
+. font-lock-variable-name-face) ;; ip4
+        ("[0-9]\\{1,5\\}" . font-lock-constant-face);; port 0-65535
         ("nmap" . font-lock-builtin-face)))
 
 (define-derived-mode nmap-mode fundamental-mode "nmap"
