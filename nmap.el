@@ -50,14 +50,17 @@
        (opt space)
        (group (1+ digit))))))))
 
+(defconst time-regex "-T[0-5]")
+
 ;; (setq port-regex (concat -p-no* "\\|" "-p-" "\\|"))
 
 ;; (,port-regex font-lock-string-face)
 (setq nmap-highlights
       `((,ips-regex    . font-lock-variable-name-face)
         (,port-regex   . font-lock-keyword-face)
+        (,time-regex   . font-lock-warning-face)
         ("[0-9]+"      . font-lock-constant-face)
-        ("nmap"        . font-lock-comment-face)))
+        ("nmap"        . font-lock-builtin-face)))
 
 (define-derived-mode nmap-mode fundamental-mode "nmap"
   "Onyl syntax higlight for nmap"
