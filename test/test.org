@@ -28,3 +28,7 @@ ed6e:07a9:37e3:d37a:ed8d:7734:be91:d855
 9175:ef95:0957:f71b:564d:35b7:61f1:a92d
 1663:3280:8853:1298:1884:44a4:9312:36f2
 #+end_src
+* Random Commands
+#+begin_src nmap
+nmap -sS 192.168.1.1 -p 1-200 -T4
+#+end_src

@@ -8,12 +8,16 @@ nmap -sS 192.168.0.1
 1234:1234:1234:1234:1234:1234:1234:abcd
 abcd:abcd:abcd:abcd:abcd:abcd:abcd:abcd
 
-12345
-123
-
 -p 1
 -p 12
 -p 12-213
 -p-
 
 -T0 -T1 -T2 -T3 -T4 -T5
+
+nmap -p- 1aff:3c21:47b1:0000:0000:0000:0000:2afe
+
+nmap -p 1 192.168.0.1 -T3
+
+nmap -p 1 192.168.0.1 -T3
+nmap 192.168.0.1  -p 1 -T3
