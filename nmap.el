@@ -7,9 +7,9 @@
 ;; Created: Nisan 15, 2021
 ;; Modified: Nisan 15, 2021
 ;; Version: 0.0.1
+;; Version 0.0.1
 ;; Keywords:
 ;; Homepage: https://github.com/EminUmutGercek/nmap.el
-;; Package-Requires: ((emacs "24.3"))
 ;;
 ;; This file is not part of GNU Emacs.
 ;;
@@ -52,9 +52,6 @@
 
 (defconst time-regex "-T[0-5]")
 
-;; (setq port-regex (concat -p-no* "\\|" "-p-" "\\|"))
-
-;; (,port-regex font-lock-string-face)
 (setq nmap-highlights
       `((,ips-regex    . font-lock-variable-name-face)
         (,port-regex   . font-lock-keyword-face)
