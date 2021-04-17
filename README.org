@@ -1,2 +1,12 @@
 # nmap.el
 Simple syntax highlight for nmap switches.
+
+* Features
+** IP
+[[file:img/ip-syntax-higlight.png]]
+** Time
+[[file:img/time-syntax-highlight.png]]
+** Port
+[[file:img/port-syntax-higlight.png]]
+** Place holder
+[[file:img/place-holder-syntax-higlight.png]]
