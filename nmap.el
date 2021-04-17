@@ -33,6 +33,10 @@
 
 (defconst ips-regex (concat ip4-regex "\\|" ip6-regex)) ;; ip4 or ip6
 
+(defconst domain-regex "[a-zA-Z][-a-zA-Z\.]+")
+
+(defconst target-regex (concat ips-regex "\\|" ips-regex))
+
 (defconst -p-no* "-p [[:digit:]]+\\(-[[:digit:]]+\\)?")
 
 (defconst port-regex
@@ -53,7 +57,7 @@
 (defconst time-regex "-T[0-5]")
 
 (setq nmap-highlights
-      `((,ips-regex    . font-lock-variable-name-face)
+      `((,target-regex . font-lock-variable-name-face)
         (,port-regex   . font-lock-keyword-face)
         (,time-regex   . font-lock-warning-face)
         ("[0-9]+"      . font-lock-constant-face)
