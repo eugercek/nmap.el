@@ -31,16 +31,19 @@
 ;;  ([0-9a-fA-F]  {1,4  }:  )  {7  }[0-9a-fA-F]   {1,4 }
 ;;  ([0-9a-fA-F]{1,4}:){7}[0-9a-fA-F]{1,4}
 
-(defconst ips-regex (concat ip4-regex "\\|" ip6-regex)) ;; ip4 or ip6
+(defconst ips-regex (concat ip4-regex "\\|" ip6-regex "\\|" "<ip>")) ;; ip4 or ip6
 
-(defconst domain-regex "[a-zA-Z][-a-zA-Z\.]+")
+(defconst domain-regex (concat "[a-zA-Z][-a-zA-Z\.]+" "\\|" "<domain>"))
 
 (defconst target-regex (concat ips-regex "\\|" ips-regex))
 
 (defconst -p-no* "-p [[:digit:]]+\\(-[[:digit:]]+\\)?")
 
-(defconst port-regex
+(defconst port-regex 
   (rx
+   (or
+    "<port>"
+   (seq
    "-p"
    (opt space)
    (or
@@ -52,9 +55,9 @@
       (seq
        "-"
        (opt space)
-       (group (1+ digit))))))))
+       (group (1+ digit))))))))))
 
-(defconst time-regex "-T[0-5]")
+(defconst time-regex (concat "-T[0-5]" "\\|" "<time>"))
 
 (setq nmap-highlights
       `((,target-regex . font-lock-variable-name-face)
